@@ -1,0 +1,47 @@
+# Visual Studio / .NET
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+**/bin/
+**/obj/
+out/
+
+# NuGet
+*.nupkg
+packages/
+.nuget/
+project.lock.json
+
+# Rider / IDE
+.idea/
+*.sln.iml
+
+# Logs and caches
+*.log
+*.cache
+
+# Environment files
+.env
+
+# Node
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Others
+*.db
+
+# Ignore local secrets (do not commit secrets)
+secrets.json
+appsettings.Local.json
+
+# Uncomment if using JetBrains Rider caches
+# .idea/
