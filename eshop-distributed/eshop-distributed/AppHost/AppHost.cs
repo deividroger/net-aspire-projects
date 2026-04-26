@@ -13,14 +13,23 @@ var cache = builder.AddRedis("cache")
                     .WithDataVolume()
                     .WithLifetime(ContainerLifetime.Persistent);
 
+var rabbitMQ = builder.AddRabbitMQ("rabbitmq")
+                      .WithManagementPlugin()
+                      .WithDataVolume()
+                      .WithLifetime(ContainerLifetime.Persistent);
+
 //Projects
 var catalog = builder.AddProject<Projects.catalog>("catalog")
     .WithReference(catalogDb)
-    .WaitFor(catalogDb);
+    .WithReference(rabbitMQ)
+    .WaitFor(catalogDb)
+    .WaitFor(rabbitMQ);
 
 var basket = builder.AddProject<Projects.Basket>("basket")
     .WithReference(cache)
     .WithReference(catalog)
-    .WaitFor(cache);
+    .WithReference(rabbitMQ)
+    .WaitFor(cache)
+    .WaitFor(rabbitMQ);
 
 builder.Build().Run();

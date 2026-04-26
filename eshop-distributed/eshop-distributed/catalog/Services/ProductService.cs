@@ -1,6 +1,9 @@
-﻿namespace catalog.Services;
+﻿using MassTransit;
+using ServiceDefaults.Messaging.Events;
 
-public class ProductService(ProductDbContext dbContext)
+namespace catalog.Services;
+
+public class ProductService(ProductDbContext dbContext, IBus bus)
 {
     public async Task CreateProductAsync(Product product)
     {
@@ -20,6 +23,23 @@ public class ProductService(ProductDbContext dbContext)
 
     public async Task UpdateProductAsync(Product product)
     {
+        var existingProduct = await dbContext.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == product.Id);
+
+        //lacks outbox pattern, but for the sake of simplicity, we will publish the event directly here
+        //just for learning purposes, in production, we should use the outbox pattern to ensure that the event is published only if the database transaction is successful
+        if (existingProduct?.Price != product.Price)
+        {
+            var integrationEvent = new ProductPriceChangedIntegrationEvent
+            {
+                ProductId = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                ImageUrl = product.ImageUrl
+            };
+            await bus.Publish(integrationEvent);
+        }
+
         dbContext.Products.Update(product);
         await dbContext.SaveChangesAsync();
     }

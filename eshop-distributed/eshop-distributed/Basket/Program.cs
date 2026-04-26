@@ -1,7 +1,8 @@
 using Basket.ApiClients;
 using Basket.Endpoints;
 using Basket.Services;
-using Microsoft.Extensions.Configuration;
+using ServiceDefaults.Messaging;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,12 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 builder.AddKeyedRedisDistributedCache("cache");
 builder.Services.AddScoped<BasketService>();
-
+builder.Services.AddMassTransientWithAssemblies(Assembly.GetExecutingAssembly());
 
 builder.Services.AddHttpClient<CatalogApiClient>(client =>
 {
     client.BaseAddress = new("http+https://catalog");
-    //client.BaseAddress = new Uri(builder.Configuration["services:catalog:http:0"]!);
 });
 
 // Add services to the container.

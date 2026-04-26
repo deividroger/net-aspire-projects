@@ -27,14 +27,14 @@ Content-Type: application/json
 ###
 
 # Update product
-PUT {{catalog_HostAddress}}/products/1
+PUT {{catalog_HostAddress}}/products/2
 Content-Type: application/json
 
 {
-  "id": 1,
+  "id": 2,
   "name": "Updated Product",
   "description": "Updated description",
-  "price": 24.99,
+  "price": 50.99,
   "imageUrl": "https://example.com/image-updated.jpg"
 }
 

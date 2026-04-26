@@ -30,4 +30,15 @@ public class BasketService (IDistributedCache cache, CatalogApiClient catalogApi
     {
         await cache.RemoveAsync(userName);
     }
+
+    public async Task UpdateBasketItemProductsPrices(int productId, decimal price)
+    {
+        var basket = await GetBasket("johndoe");
+        var item = basket?.Items.FirstOrDefault(i => i.ProductId == productId);
+        if (item is not null)
+        {
+            item.Price = price;
+            await cache.SetStringAsync(basket.UserName, JsonSerializer.Serialize(basket));
+        }
+    }
 }
