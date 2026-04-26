@@ -9,15 +9,15 @@ public static class ProductEnpoints
     {
         var group = app.MapGroup("/products");
 
-        group.MapPost("/products", async (Product product, ProductService service) =>
+        group.MapPost("/", async (Product product, ProductService service) =>
         {
             await service.CreateProductAsync(product);
-            return Results.Created($"/products/{product.Id}", product);
+            return Results.Created($"/{product.Id}", product);
         })
         .WithName("CreateProduct")
         .Produces<Product>(StatusCodes.Status201Created);
 
-        group.MapGet("/products", async (ProductService service) =>
+        group.MapGet("/", async (ProductService service) =>
         {
             var products = await service.GetProductsAsync();
             return Results.Ok(products);
@@ -25,7 +25,7 @@ public static class ProductEnpoints
         .WithName("GetProducts")
         .Produces<List<Product>>(StatusCodes.Status200OK);
 
-        group.MapGet("/products/{id}", async (int id, ProductService service) =>
+        group.MapGet("{id}", async (int id, ProductService service) =>
         {
             var product = await service.GetProductByIdAsync(id);
             return product is not null ? Results.Ok(product) : Results.NotFound();
@@ -34,7 +34,7 @@ public static class ProductEnpoints
         .Produces<Product>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        group.MapPut("/products/{id}", async (int id, Product updatedProduct, ProductService service) =>
+        group.MapPut("/{id}", async (int id, Product updatedProduct, ProductService service) =>
         {
             var existingProduct = await service.GetProductByIdAsync(id);
             if (existingProduct is null) return Results.NotFound();
@@ -49,7 +49,7 @@ public static class ProductEnpoints
         .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status404NotFound);
 
-        group.MapDelete("/products/{id}", async (int id, ProductService service) =>
+        group.MapDelete("/{id}", async (int id, ProductService service) =>
         {
             var existingProduct = await service.GetProductByIdAsync(id);
             if (existingProduct is null) return Results.NotFound();

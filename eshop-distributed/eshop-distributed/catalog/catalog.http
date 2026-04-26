@@ -1,20 +1,20 @@
-@catalog_HostAddress = http://localhost:5219
+@catalog_HostAddress = https://localhost:7285
 
 
 # Products - list
-GET {{catalog_HostAddress}}/products/products
+GET {{catalog_HostAddress}}/products
 Accept: application/json
 
 ###
 
 # Get product by id
-GET {{catalog_HostAddress}}/products/products/1
+GET {{catalog_HostAddress}}/products/1
 Accept: application/json
 
 ###
 
 # Create product
-POST {{catalog_HostAddress}}/products/products
+POST {{catalog_HostAddress}}/products
 Content-Type: application/json
 
 {
@@ -27,7 +27,7 @@ Content-Type: application/json
 ###
 
 # Update product
-PUT {{catalog_HostAddress}}/products/products/1
+PUT {{catalog_HostAddress}}/products/1
 Content-Type: application/json
 
 {
@@ -41,6 +41,6 @@ Content-Type: application/json
 ###
 
 # Delete product
-DELETE {{catalog_HostAddress}}/products/products/1
+DELETE {{catalog_HostAddress}}/products/1
 
 ###

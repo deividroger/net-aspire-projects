@@ -1,0 +1,33 @@
+@Basket_HostAddress = http://localhost:5190
+
+### Get basket by user
+GET {{Basket_HostAddress}}/basket/johndoe
+Accept: application/json
+
+###
+
+### Update (create or update) basket
+POST {{Basket_HostAddress}}/basket/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "userName": "johndoe",
+  "items": [
+    {
+      "productId": 2,
+      "productName": "Product 1",
+      "price": 0,
+      "quantity": 2,
+      "color": "red"
+    }
+  ]
+}
+
+###
+
+### Delete basket by user
+DELETE {{Basket_HostAddress}}/basket/johndoe
+Accept: application/json
+
+###
