@@ -1,7 +1,15 @@
 @Basket_HostAddress = http://localhost:5190
+@Basket_HostAddress = http://localhost:5190
+@Keycloak_Host = http://localhost:8080
+@Keycloak_Realm = eshop
+@Keycloak_ClientId = eshop-client
+@Keycloak_Username = test
+@Keycloak_Password = 1234
+@access_token = eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJNVHg2Z0lYLVJLRUNGS1ZRNFBqX21GNE5mcTJRVE4tWjhwdVhJT2VwZHpnIn0.eyJleHAiOjE3Nzc0MTQ3MzksImlhdCI6MTc3NzQxNDQzOSwianRpIjoiYzllMDZlZmItOTE2ZS00ZGZiLThkNzktYWRiMjk3MjU1YjU3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9lc2hvcCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiOGM3Y2E3Ny1jZGMyLTQ5MzItOTM4Ni1iZTlmYjYzZDAyMTQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJlc2hvcC1jbGllbnQiLCJzaWQiOiI4MGJkMzE0Yy05OTY3LTQxNzMtOGZkOS0yNmU1OWRiM2FhMTgiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIi8qIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiZGVmYXVsdC1yb2xlcy1lc2hvcCJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoidGVzdCB0ZXN0IiwicHJlZmVycmVkX3VzZXJuYW1lIjoidGVzdCIsImdpdmVuX25hbWUiOiJ0ZXN0IiwiZmFtaWx5X25hbWUiOiJ0ZXN0IiwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIn0.LVmm-4FMJeTwvtJPraAAu3WNOTJVuf_le2-ALUBrHsMstgE3A7qaCa9zh-RztazwyShWsGvL4flIqGHDFHm-w2NwBbHEbuQHuM8YTNDayTi7FoQVk2-A1fldNbR0LWgDRz5oYRJYVVTOGOyXwo_LmnlvxkFBM_xDCsDmbNa9s3pFTs6dQj1qq1rNoWs7_PuX8xCqKh5NDr495ZOa8hyiq4tDHVL7xb9WpFbs5t0R18bt6qAiirIpUqjEdng5ENpyq3K7L4vsyIUI3kkrvSr8DkCC4cWdgwnM21qwBZOGBOHk7snNzdZdZOBYl8aqalhpiZ3Cwj5bpil9-EV_qdxCtQ
 
 ### Get basket by user
 GET {{Basket_HostAddress}}/basket/johndoe
+Authorization: Bearer {{access_token}}
 Accept: application/json
 
 ###
@@ -10,6 +18,7 @@ Accept: application/json
 POST {{Basket_HostAddress}}/basket/
 Content-Type: application/json
 Accept: application/json
+Authorization: Bearer {{access_token}}
 
 {
   "userName": "johndoe",
@@ -29,5 +38,15 @@ Accept: application/json
 ### Delete basket by user
 DELETE {{Basket_HostAddress}}/basket/johndoe
 Accept: application/json
+Authorization: Bearer {{access_token}}
+
+###
+
+### Get Keycloak access token (password grant)
+POST {{Keycloak_Host}}/realms/{{Keycloak_Realm}}/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+
+grant_type=password&client_id={{Keycloak_ClientId}}&username={{Keycloak_Username}}&password={{Keycloak_Password}}&scope=email
 
 ###
