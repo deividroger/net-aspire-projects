@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "catalog", "catalog\catalog.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket", "Basket\Basket.csproj", "{EF221255-572C-4B54-A464-BC56710775CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{FE5EA0C2-96C2-4FB0-A695-8A3450ABE134}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{EF221255-572C-4B54-A464-BC56710775CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF221255-572C-4B54-A464-BC56710775CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF221255-572C-4B54-A464-BC56710775CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE5EA0C2-96C2-4FB0-A695-8A3450ABE134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE5EA0C2-96C2-4FB0-A695-8A3450ABE134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE5EA0C2-96C2-4FB0-A695-8A3450ABE134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE5EA0C2-96C2-4FB0-A695-8A3450ABE134}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{929C59DA-E798-4AF0-B3BF-88FFCDCA2A75} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{1E50FD7D-17F1-4771-A84A-4FDC7A2DAF3B} = {3A926C85-E320-41C3-9EA0-250179EE0483}
 		{EF221255-572C-4B54-A464-BC56710775CE} = {3A926C85-E320-41C3-9EA0-250179EE0483}
+		{FE5EA0C2-96C2-4FB0-A695-8A3450ABE134} = {33297BB3-5674-466C-92A4-EE5F12E74257}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {33B070B5-80F8-46A2-BBC0-A4287064DA05}
