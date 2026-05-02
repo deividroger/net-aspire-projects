@@ -3,24 +3,34 @@ var builder = DistributedApplication.CreateBuilder(args);
 //Backing services
 var postgres = builder.AddPostgres("postgres")
                       .WithPgAdmin()
-                      .WithDataVolume()
+                      //.WithDataVolume()
                       .WithLifetime(ContainerLifetime.Persistent);
+
+
 
 var catalogDb = postgres.AddDatabase("catalogdb");
 
 var cache = builder.AddRedis("cache")
                     .WithRedisInsight()
-                    .WithDataVolume()
+                    //.WithDataVolume()
                     .WithLifetime(ContainerLifetime.Persistent);
 
 var rabbitMQ = builder.AddRabbitMQ("rabbitmq")
                       .WithManagementPlugin()
-                      .WithDataVolume()
+                      //.WithDataVolume()
                       .WithLifetime(ContainerLifetime.Persistent);
 
-var keycloak = builder.AddKeycloak("keycloak",8080)
-                      .WithDataVolume()
+var keycloak = builder.AddKeycloak("keycloak", 8080)
+                      //.WithDataVolume()
                       .WithLifetime(ContainerLifetime.Persistent);
+
+if (builder.ExecutionContext.IsRunMode)
+{
+    postgres.WithDataVolume();
+    cache.WithDataVolume();
+    rabbitMQ.WithDataVolume();
+    keycloak.WithDataVolume();
+}
 
 //Projects
 var catalog = builder.AddProject<Projects.catalog>("catalog")
@@ -37,5 +47,14 @@ var basket = builder.AddProject<Projects.Basket>("basket")
     .WaitFor(cache)
     .WaitFor(rabbitMQ)
     .WaitFor(keycloak);
+
+builder.AddProject<Projects.WebApp>("webapp")
+       .WithExternalHttpEndpoints()
+       .WithReference(catalog)
+       .WithReference(basket)
+       .WithReference(cache)
+       .WaitFor(cache)
+       .WaitFor(catalog)
+       .WaitFor(basket);
 
 builder.Build().Run();
