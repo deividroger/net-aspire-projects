@@ -44,3 +44,17 @@ Content-Type: application/json
 DELETE {{catalog_HostAddress}}/products/1
 
 ###
+
+GET {{catalog_HostAddress}}/products/support/biking
+
+### Traditional Search
+
+GET {{Catalog_HostAddress}}/products/search/Product%203
+Accept: application/json
+
+### AI Search
+
+GET {{Catalog_HostAddress}}/products/search/ai/up
+Accept: application/json
+
+###

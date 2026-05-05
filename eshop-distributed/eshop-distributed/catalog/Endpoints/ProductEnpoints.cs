@@ -1,5 +1,4 @@
 ﻿using catalog.Services;
-using OpenTelemetry.Trace;
 
 namespace catalog.Endpoints;
 
@@ -59,5 +58,29 @@ public static class ProductEnpoints
         .WithName("DeleteProduct")
         .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status404NotFound);
+
+        //Support AI
+        group.MapGet("/support/{query}", async (string query, ProductAIService service) =>
+        {
+            var response = await service.SupportAsync(query);
+            return Results.Ok(response);
+        }).WithName("SupportAI")
+        .Produces(StatusCodes.Status200OK);
+
+        // Tradicional search
+        group.MapGet("search/{query}", async (string query, ProductService service) =>
+        {
+            var products = await service.SearchProductsAsync(query);
+            return Results.Ok(products);
+        }).WithName("SearchProducts")
+        .Produces<List<Product>>(StatusCodes.Status200OK);
+
+        //ai search
+        group.MapGet("search/ai/{query}", async (string query, ProductAIService service) =>
+        {
+            var products = await service.SearchProductsAsync(query);
+            return Results.Ok(products);
+        }).WithName("SearchProductsAI")
+        .Produces<List<Product>>(StatusCodes.Status200OK);
     }
 }
