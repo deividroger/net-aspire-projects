@@ -15,6 +15,7 @@ public class CatalogApiClient(HttpClient httpClient)
         var response = await httpClient.GetFromJsonAsync<Product>($"/products/{id}");
         return response!;
     }
+<<<<<<< HEAD
 
     public async Task<string> SupportWithProducts(string query)
     {
@@ -35,4 +36,6 @@ public class CatalogApiClient(HttpClient httpClient)
             return response!;
         }
     }
+=======
+>>>>>>> f676ad999ddfc1135768b9b1a08652defe1a6f34
 }

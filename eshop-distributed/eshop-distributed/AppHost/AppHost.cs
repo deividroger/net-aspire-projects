@@ -24,6 +24,7 @@ var keycloak = builder.AddKeycloak("keycloak", 8080)
                       //.WithDataVolume()
                       .WithLifetime(ContainerLifetime.Persistent);
 
+<<<<<<< HEAD
 var ollama = builder.AddOllama("ollama", 11434)
                       .WithDataVolume()
                       .WithLifetime(ContainerLifetime.Persistent)
@@ -32,6 +33,8 @@ var ollama = builder.AddOllama("ollama", 11434)
 var llama = ollama.AddModel("llama3.2");
 var embedding = ollama.AddModel("all-minilm");
 
+=======
+>>>>>>> f676ad999ddfc1135768b9b1a08652defe1a6f34
 if (builder.ExecutionContext.IsRunMode)
 {
     postgres.WithDataVolume();
